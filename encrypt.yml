@@ -1,0 +1,19 @@
+---
+- name: Encrypt .env files
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Find .env files
+      find:
+        paths: /home/luser/ansible-vault/ansible-env/ansible-env-1/
+        recurse: yes
+        patterns: "*.env.vault"
+      register: env_files
+
+    - name: Print env
+      debug:
+        var: env_files.files
+    - name: Encrypt .env files
+      ansible.builtin.command: ansible-vault encrypt "{{ item.path }}" --vault-password-file vault_password.sh
+      loop: "{{ env_files.files }}"
+      when: item.isreg
