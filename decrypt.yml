@@ -2,10 +2,12 @@
 - name: Encrypt .env files
   hosts: localhost
   gather_facts: no
+  vars:
+    update_env: true
+
   tasks:
     - name: Find .env files
-      find:
-        paths: /home/luser/ansible-vault/ansible-env/ansible-env-1
+
         recurse: yes 
         patterns: "*.env.vault"
       register: env_files
@@ -18,4 +20,4 @@
         done
         #      ansible.builtin.command: ansible-vault decrypt "{{ item.path }}" --output= "{{ item.path | basename }}" --vault-password-file vault_password.sh
       loop: "{{ env_files.files }}"
-      when: item.isreg
+      when: item.isreg and update_env == true

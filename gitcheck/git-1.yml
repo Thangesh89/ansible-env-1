@@ -1,0 +1,13 @@
+---
+- name: Git Pull from Origin Main
+  hosts: localhost
+  tasks:
+    - name: Fetch changes from the origin remote's main branch
+      git:
+        repo: /home/luser/ansible-vault/ansible-env/ansible-env-1/gitcheck/ansible-env-1/  # Replace with your local repository path
+        remote: origin
+        refspec: '+refs/heads/main:refs/remotes/origin/main'
+        clone: no  # Set to 'no' to indicate that the repository already exists
+        dest: /home/luser/ansible-vault/ansible-env/ansible-env-1/gitcheck/ansible-env-1/  # Replace with your repository's local path
+      become: yes  # Use this if you need elevated privileges
+

@@ -1,0 +1,12 @@
+---
+- name: Git Pull from Origin Master (Password Authentication)
+  hosts: localhost
+  tasks:
+    - name: Clone or update the Git repository
+      git:
+        repo: https://Thangesh89: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@github.com/Thangesh89/ansible-env-1.git
+        dest: /home/luser/ansible-vault/ansible-env/ansible-env-1/gitcheck/ansible-env-1
+        version: main  # Specify the branch or tag you want to pull
+        accept_hostkey: yes
+      become: yes  # Use this if you need elevated privileges
+
